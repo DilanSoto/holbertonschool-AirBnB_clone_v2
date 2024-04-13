@@ -1,37 +1,41 @@
 #!/usr/bin/python3
+"""
+starts a Flask web application
+"""
 
-# Import the Flask class from the flask package
 from flask import Flask
-
-# Create an instance of the Flask class and assign it to the variable 'app'
 app = Flask(__name__)
 
-# Define a route for the root URL '/', with the strict_slashes=False option to accept the URL with or without a trailing slash
+
 @app.route('/', strict_slashes=False)
-def hello():
+def index():
+    """returns Hello HBNB!"""
     return 'Hello HBNB!'
 
-# Define a route for the '/hbnb' URL, with the strict_slashes=False option to accept the URL with or without a trailing slash
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
+    """returns HBNB"""
     return 'HBNB'
 
-# Define a dynamic route for the '/c/<text>' URL, where '<text>' is a variable part of the URL, with the strict_slashes=False option to accept the URL with or without a trailing slash
-@app.route('/c/<text>', strict_slashes=False)
-def replace_text(text):
-    replaced_text = text.replace("_", " ")
-    return 'C ' + replaced_text
 
-# Define a dynamic route for the '/python/<text>' URL, where '<text>' is a variable part of the URL and has a default value "is cool", with the strict_slashes=False option to accept the URL with or without a trailing slash
+@app.route('/c/<text>', strict_slashes=False)
+def cisfun(text):
+    """display “C ” followed by the value of the text variable"""
+    return 'C ' + text.replace('_', ' ')
+
+
+@app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text="is cool"):
-    formatted_text = "Python " + text.replace("_", " ")
-    return formatted_text
+def pythoniscool(text='is cool'):
+    """display “Python ”, followed by the value of the text variable"""
+    return 'Python ' + text.replace('_', ' ')
+
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def is_number(n):
-    return f'{n} is a number'
+def imanumber(n):
+    """display “n is a number” only if n is an integer"""
+    return "{:d} is a number".format(n)
 
-# Run the Flask application on host '0.0.0.0' and port 5000 if this script is executed as the main script
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port='5000')

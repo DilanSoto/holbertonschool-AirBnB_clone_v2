@@ -6,20 +6,15 @@
     <BODY>
         <H1>States</H1>
         <UL>
-            {#
-                The state and city classes can be found
-                in: project_root/models/[state|city].py
-            #}
-            {% for state in states | sort(attribute='name') %}
-                <LI>{{ state.id }}: <B>{{ state.name }}</B>
-                    <UL>
-                        {% for city in state.cities | sort(attribute='name') %}
-                            <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
-                        {% endfor %}
-                    </UL>
-                </LI>
-                {% endfor %}
-            </LI>
+        {% for state in states|sort(attribute='name') %}
+            <LI>{{ state.id }}: <B>{{ state.name }}</B>
+	        <UL>
+	        {% for city in state.cities|sort(attribute='name') %}
+	            <LI>{{ city.id }}: <B>{{ city.name }}</B></LI>
+	        {% endfor %}
+	        </UL>
+	    </LI>
+        {% endfor %}
         </UL>
     </BODY>
 </HTML>
