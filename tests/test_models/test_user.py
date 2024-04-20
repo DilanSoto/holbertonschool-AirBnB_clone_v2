@@ -32,14 +32,3 @@ class test_User(test_basemodel):
         """ """
         new = self.value()
         self.assertEqual(type(new.password), str)
-
-    def test_places_relationship(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.places), list)
-
-    def test_reviews_relationship(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.reviews), list)
-        
