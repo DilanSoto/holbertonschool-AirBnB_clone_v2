@@ -24,7 +24,7 @@ def split_curly_braces(e_arg):
     try:
         curly_braces = re.search(r"\{(.*?)\}", e_arg)
         if curly_braces:
-            id_with_comma = shlex.split(e_arg[:curly_braces.span()[0]])
+            id_with_comma = shlex.split(e_arg[: curly_braces.span()[0]])
             id = [i.strip(",") for i in id_with_comma][0]
 
             str_data = curly_braces.group(1)
@@ -46,9 +46,9 @@ class HBNBCommand(cmd.Cmd):
     """
     HBNBCommand console class
     """
+
     prompt = "(hbnb) "
-    valid_classes = ["BaseModel", "User", "Amenity",
-                     "Place", "Review", "State", "City"]
+    valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """
@@ -168,7 +168,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             else:
                 for key, value in objects.items():
-                    if key.split('.')[0] == commands[0]:
+                    if key.split(".")[0] == commands[0]:
                         print(value)
         except Exception as e:
             print(f"Error: {e}")
@@ -185,7 +185,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** class name missing **")
                 return
             class_name = commands[0]
-            count = sum(1 for obj in objects.values() if obj.__class__.__name__ == class_name)
+            count = sum(
+                1 for obj in objects.values() if obj.__class__.__name__ == class_name
+            )
             print(count)
         except Exception as e:
             print(f"Error: {e}")
@@ -198,7 +200,9 @@ class HBNBCommand(cmd.Cmd):
         try:
             commands = shlex.split(arg)
             if len(commands) < 4:
-                print("** Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **")
+                print(
+                    "** Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **"
+                )
                 return
             objects = storage.all()
             key = "{}.{}".format(commands[0], commands[1])
@@ -224,18 +228,18 @@ class HBNBCommand(cmd.Cmd):
         Default behavior for cmd module when input is invalid
         """
         try:
-            arg_list = arg.split('.')
+            arg_list = arg.split(".")
             class_name = arg_list[0]
-            command = arg_list[1].split('(')
+            command = arg_list[1].split("(")
             method_name = command[0]
-            extra_args = command[1].split(')')[0]
+            extra_args = command[1].split(")")[0]
 
             method_dict = {
-                'all': self.do_all,
-                'show': self.do_show,
-                'destroy': self.do_destroy,
-                'update': self.do_update,
-                'count': self.do_count
+                "all": self.do_all,
+                "show": self.do_show,
+                "destroy": self.do_destroy,
+                "update": self.do_update,
+                "count": self.do_count,
             }
 
             if method_name in method_dict:
@@ -252,5 +256,5 @@ class HBNBCommand(cmd.Cmd):
             print(f"Error: {e}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
